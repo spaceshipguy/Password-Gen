@@ -1,0 +1,195 @@
+﻿using System;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+
+public class PasswordGenerator
+{
+    private static readonly string Letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private static readonly string Digits = "0123456789";
+    private static readonly string Punctuation = "!@#$%^&*()-_=+[]{};:'\"<>,.?/|\\";
+
+    private static readonly Random Random = new Random();
+
+    public static string GeneratePassword(int length, bool includeDigits = true, bool includeLetters = true, bool includePunctuation = true)
+    {
+        StringBuilder password = new StringBuilder();
+        string characterSet = string.Empty;
+
+        if (includeDigits)
+            characterSet += Digits;
+
+        if (includeLetters)
+            characterSet += Letters;
+
+        if (includePunctuation)
+            characterSet += Punctuation;
+
+        if (characterSet.Length == 0)
+        {
+            Console.WriteLine("Error: No character set selected.");
+            return string.Empty;
+        }
+
+        for (int i = 0; i < length; i++)
+        {
+            int randomIndex = Random.Next(0, characterSet.Length);
+            password.Append(characterSet[randomIndex]);
+        }
+
+        return password.ToString();
+    }
+
+    public static void PrintTitle()
+    {
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine(@"
+          _______             _______           _______  _        _       
+|\     /|(  ___  )|\     /|  (  ____ \|\     /|(  ___  )( \      ( \      
+( \   / )| (   ) || )   ( |  | (    \/| )   ( || (   ) || (      | (      
+ \ (_) / | |   | || |   | |  | (_____ | (___) || (___) || |      | |      
+  \   /  | |   | || |   | |  (_____  )|  ___  ||  ___  || |      | |      
+   ) (   | |   | || |   | |        ) || (   ) || (   ) || |      | |      
+   | |   | (___) || (___) |  /\____) || )   ( || )   ( || (____/\| (____/\
+   \_/   (_______)(_______)  \_______)|/     \||/     \|(_______/(_______/
+                                                                          
+ _        _______ _________
+( (    /|(  ___  )\__   __/
+|  \  ( || (   ) |   ) (   
+|   \ | || |   | |   | |   
+| (\ \) || |   | |   | |   
+| | \   || |   | |   | |   
+| )  \  || (___) |   | |   
+|/    )_)(_______)   )_(   
+                           
+ _______  _______  _______  _______           _______  _______  ______  
+(  ____ )(  ___  )(  ____ \(  ____ \|\     /|(  ___  )(  ____ )(  __  \ 
+| (    )|| (   ) || (    \/| (    \/| )   ( || (   ) || (    )|| (  \  )
+| (____)|| (___) || (_____ | (_____ | | _ | || |   | || (____)|| |   ) |
+|  _____)|  ___  |(_____  )(_____  )| |( )| || |   | ||     __)| |   | |
+| (      | (   ) |      ) |      ) || || || || |   | || (\ (   | |   ) | 
+| )      | )   ( |/\____) |/\____) || () () || (___) || ) \ \__| (__/  ) 
+|/       |/     \|\_______)\_______)(_______)(_______)|/   \__/(______/  
+                                                                  
+");
+    }
+
+    public static void Main()
+    {
+        PrintTitle();
+        Console.WriteLine("Shall We Start? \npress any button or enter to continue");
+        Console.ReadLine();
+        string length;
+        bool includeDigits = true;
+        bool includeLetters = true;
+        bool includePunctuation = true;
+        string level;
+        int passwordLength = 8; // You can change the length of the password here
+        
+        Console.ForegroundColor = ConsoleColor.Magenta;
+        
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.Write("how long do you want your password \n1:Short\n2:Medium\n3:Long\n4:Giant\n5:Whatever\nEnter the desired number that matches your answer. \n:");
+        
+        length = Console.ReadLine();
+        if (length == "1")
+        {
+            passwordLength = 6;
+            level = "short";
+        }
+        if (length == "2")
+        {
+            passwordLength = 12;
+            level = "Medium";
+        }
+        if (length == "3")
+        {
+            passwordLength = 24;
+            level = "Long";
+        }
+        if (length == "4")
+        {
+            passwordLength = 100;
+            level = "Cucuco";
+        }
+        if (length == "5")
+        {
+            Console.Write("specify how many charatars \n:");
+            string answer3;
+            answer3 = Console.ReadLine();
+            int.TryParse(answer3, out passwordLength);
+        }
+        string generatedPassword = GeneratePassword(passwordLength, includeDigits, includeLetters, includePunctuation);
+        string aswer1;
+        Console.WriteLine("Loading Sequence Activating\nPress Enter To Continue\n!!! WARNING UNICORN LOADING LAND AHEAD <PROCEED WITH CAUTION> !!!");
+
+        Console.ReadLine(); 
+        Console.ForegroundColor = ConsoleColor.Green;        
+        
+        bool cycle = true;
+        int until = 0;
+
+        while (until < 50000 || until == 50000)
+            {
+                int color = 0;
+                int kk = Random.Next(0, 5);
+            string dash;
+              
+
+            if (color == 0)
+                {
+                    Console.WriteLine("-*-" + until + "-*-");
+                    until++;
+                    Console.ForegroundColor= ConsoleColor.Red;
+                color++;
+
+                }
+                if (color == 1)
+                {
+                    Console.WriteLine("-*-"  + until + "-*-");
+                    until++;
+                    Console.ForegroundColor= ConsoleColor.Yellow;
+                color++;
+                }
+                if (color == 2)
+                {
+                    Console.WriteLine("-*-" + until + "-*-");
+                    until++;
+                    Console.ForegroundColor= ConsoleColor.Green;
+                color++;
+                }
+                if (color == 3)
+                {
+                    Console.WriteLine("-*-" + until + "-*-");
+                    until++;
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                color++;
+                }
+                if (color == 4)
+                {
+                    Console.WriteLine("-*-" + until + "-*-");
+                color++;
+                }
+                if (color == 5)
+                {
+                    Console.WriteLine("-*-" + until + "-*-");
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    until++;
+                }
+                if (color > 5)
+                {
+                color = 0;
+                }
+            }
+            if (until > 50000)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("your Password Is: " + generatedPassword);
+            }
+            
+        
+        Console.ReadLine();
+        
+    }
+}
